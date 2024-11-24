@@ -8,16 +8,16 @@ public class BezierCurveApp : GameWindow
 {
     private int _vao, _vbo, _program, _pointVao, _pointVbo;
     private Vector2[] _controlPoints = {
-        new Vector2(-0.8f, -0.8f),
-        new Vector2(0.0f, 0.8f),
-        new Vector2(0.8f, -0.8f)
+        new Vector2(-0.7f, -0.7f),
+        new Vector2(0.2f, 0.7f),
+        new Vector2(0.7f, -0.7f)
     };
     private int _selectedPoint = -1;
 
     public BezierCurveApp() : base(GameWindowSettings.Default, NativeWindowSettings.Default)
     {
         Title = "Bézier Curve with Movable Control Points";
-        Size = new Vector2i(600, 600);
+        Size = new Vector2i(Size.X, Size.Y);
     }
 
     protected override void OnLoad()
@@ -26,10 +26,8 @@ public class BezierCurveApp : GameWindow
 
         GL.ClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 
-        // Compile shaders and create program
         _program = CompileShaders();
 
-        // Setup VAO and VBO for curve rendering
         _vao = GL.GenVertexArray();
         _vbo = GL.GenBuffer();
 
@@ -43,7 +41,6 @@ public class BezierCurveApp : GameWindow
 
         GL.BindVertexArray(0);
 
-        // Setup VAO and VBO for control points
         _pointVao = GL.GenVertexArray();
         _pointVbo = GL.GenBuffer();
 
@@ -62,20 +59,19 @@ public class BezierCurveApp : GameWindow
         base.OnUpdateFrame(args);
 
         Vector2 mousePos = new Vector2(
-            2.0f * MouseState.Position.X / Size.X - 1.0f,
-            -(2.0f * MouseState.Position.Y / Size.Y) + 1f
+            2.0f * MouseState.Position.X / Size.X - 1.0f, // windowWidth -> [-1, 1]
+            -2.0f * (MouseState.Position.Y / Size.Y) + 1.0f // windowHeight -> [-1, 1]
         );
 
-        // Handle mouse interaction
         if (MouseState.IsButtonDown(OpenTK.Windowing.GraphicsLibraryFramework.MouseButton.Left))
         {
+            Console.WriteLine(MouseState.Position.Y);
+            Console.WriteLine(Size.Y);
             if (_selectedPoint == -1)
             {
                 for (int i = 0; i < _controlPoints.Length; i++)
                 {
-                    Console.WriteLine(_controlPoints[i]);
-                    Console.WriteLine(mousePos);
-                    if ((mousePos - _controlPoints[i]).Length < 0.5f)
+                    if ((mousePos - _controlPoints[i]).Length < 0.1f)
                     {
                         _selectedPoint = i;
                         break;
@@ -83,19 +79,21 @@ public class BezierCurveApp : GameWindow
                 }
             }
 
-            // Move selected control point
             if (_selectedPoint != -1)
             {
-                _controlPoints[_selectedPoint] = mousePos;
+                _controlPoints[_selectedPoint] = new Vector2(mousePos.X, mousePos.Y - 0.1f);
             }
         }
         else
         {
-            // Release control point when the mouse button is released
             _selectedPoint = -1;
         }
     }
-
+    protected override void OnResize(ResizeEventArgs e)
+    {
+        base.OnResize(e);
+        GL.Viewport(0, 0, Size.X, Size.Y);
+    }
 
     protected override void OnRenderFrame(FrameEventArgs args)
     {
@@ -105,7 +103,6 @@ public class BezierCurveApp : GameWindow
 
         GL.UseProgram(_program);
 
-        // Draw Bézier curve
         Vector2[] bezierPoints = new Vector2[100];
         for (int i = 0; i < bezierPoints.Length; i++)
         {
@@ -119,16 +116,15 @@ public class BezierCurveApp : GameWindow
         GL.BufferSubData(BufferTarget.ArrayBuffer, IntPtr.Zero, bezierPoints.Length * Vector2.SizeInBytes, bezierPoints);
         GL.BindVertexArray(_vao);
 
-        GL.Uniform4(GL.GetUniformLocation(_program, "uColor"), new Vector4(1.0f, 0.5f, 0.2f, 1.0f)); // Curve color
+        GL.Uniform4(GL.GetUniformLocation(_program, "uColor"), new Vector4(1.0f, 0.5f, 0.2f, 1.0f));
         GL.DrawArrays(PrimitiveType.LineStrip, 0, bezierPoints.Length);
 
-        // Draw control points
         GL.BindBuffer(BufferTarget.ArrayBuffer, _pointVbo);
         GL.BufferSubData(BufferTarget.ArrayBuffer, IntPtr.Zero, _controlPoints.Length * Vector2.SizeInBytes, _controlPoints);
         GL.BindVertexArray(_pointVao);
 
         GL.PointSize(10.0f);
-        GL.Uniform4(GL.GetUniformLocation(_program, "uColor"), new Vector4(0.2f, 0.8f, 1.0f, 1.0f)); // Control points color
+        GL.Uniform4(GL.GetUniformLocation(_program, "uColor"), new Vector4(0.2f, 0.8f, 1.0f, 1.0f));
         GL.DrawArrays(PrimitiveType.Points, 0, _controlPoints.Length);
 
         GL.BindVertexArray(0);
@@ -171,12 +167,10 @@ void main()
         int vertexShader = GL.CreateShader(ShaderType.VertexShader);
         GL.ShaderSource(vertexShader, vertexShaderCode);
         GL.CompileShader(vertexShader);
-        CheckShaderCompileStatus(vertexShader);
 
         int fragmentShader = GL.CreateShader(ShaderType.FragmentShader);
         GL.ShaderSource(fragmentShader, fragmentShaderCode);
         GL.CompileShader(fragmentShader);
-        CheckShaderCompileStatus(fragmentShader);
 
         int shaderProgram = GL.CreateProgram();
         GL.AttachShader(shaderProgram, vertexShader);
@@ -187,16 +181,6 @@ void main()
         GL.DeleteShader(fragmentShader);
 
         return shaderProgram;
-    }
-
-    private void CheckShaderCompileStatus(int shader)
-    {
-        GL.GetShader(shader, ShaderParameter.CompileStatus, out int status);
-        if (status == 0)
-        {
-            string infoLog = GL.GetShaderInfoLog(shader);
-            throw new Exception($"Shader compilation failed: {infoLog}");
-        }
     }
 
     public static void Main()
