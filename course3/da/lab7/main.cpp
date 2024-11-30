@@ -2,6 +2,7 @@
 #include <vector>
 #include <algorithm>
 using namespace std;
+
 int maxRectangleWithZeros(const vector<vector<int>>& matrix, int n, int m) {
 	if (n == 0 || m == 0) return 0;
 	vector<int> height(m, 0);

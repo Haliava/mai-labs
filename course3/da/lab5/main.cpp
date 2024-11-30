@@ -6,62 +6,77 @@
 
 using namespace std;
 
-void build_suffix_array(const string& s, vector<int>& sa) {
+const char DELIMITER_0 = '\0';
+const char DELIMITER_1 = '\1';
+
+vector<int> buildSuffixArray(const string& s) {
     int n = s.size();
-    sa.resize(n);
-    vector<int> rank(n);
+    vector<int> suffArr(n);
+    vector<int> rank(n), tempRank(n);
+
     for (int i = 0; i < n; ++i) {
-        sa[i] = i;
+        suffArr[i] = i;
         rank[i] = s[i];
     }
+
     for (int k = 1; k < n; k *= 2) {
-        sort(sa.begin(), sa.end(), [&rank, k, n](int a, int b) {
-            if (rank[a] != rank[b]) return rank[a] < rank[b];
-            int ra = a + k < n ? rank[a + k] : -1;
-            int rb = b + k < n ? rank[b + k] : -1;
-            return ra < rb;
-        });
-        vector<int> new_rank(n);
-        new_rank[sa[0]] = 0;
-        for (int i = 1; i < n; ++i) {
-            if (rank[sa[i]] == rank[sa[i-1]] && 
-                (sa[i]+k < n ? rank[sa[i]+k] : -1) == (sa[i-1]+k < n ? rank[sa[i-1]+k] : -1)) {
-                new_rank[sa[i]] = new_rank[sa[i-1]];
-            } else {
-                new_rank[sa[i]] = new_rank[sa[i-1]] + 1;
+        auto comparator = [&](int a, int b) {
+            if (rank[a] != rank[b]) {
+              return rank[a] < rank[b];
             }
+            
+            int ra = (a + k < n) ? rank[a + k] : -1;
+            int rb = (b + k < n) ? rank[b + k] : -1;
+            return ra < rb;
+        };
+
+        sort(suffArr.begin(), suffArr.end(), comparator);
+
+        tempRank[suffArr[0]] = 0;
+        for (int i = 1; i < n; ++i) {
+            tempRank[suffArr[i]] = tempRank[suffArr[i - 1]] + comparator(suffArr[i - 1], suffArr[i]);
         }
-        rank = new_rank;
-        if (rank[sa[n-1]] == n-1) break;
+        rank.swap(tempRank);
     }
+
+    return suffArr;
 }
 
-void build_lcp_array(const string& s, const vector<int>& sa, vector<int>& lcp, const vector<int>& isa) {
-    int n = sa.size();
-    lcp.resize(n-1);
+vector<int> buildLCPArray(const string& s, const vector<int>& suffArr) {
+    int n = s.size();
+    vector<int> lcp(n - 1);
+    vector<int> isa(n);
+
+    for (int i = 0; i < n; ++i) {
+        isa[suffArr[i]] = i;
+    }
+
     int h = 0;
     for (int i = 0; i < n; ++i) {
-        if (isa[i] > 0) {
-            int j = sa[isa[i]-1];
-            while (i + h < n && j + h < n && s[i+h] == s[j+h]) {
-                h++;
-            }
-            lcp[isa[i]-1] = h;
-            if (h > 0) h--;
+        if (isa[i] == 0) {
+          continue;
+        }
+
+        int j = suffArr[isa[i] - 1];
+        while (i + h < n && j + h < n && s[i + h] == s[j + h]) {
+          ++h;
+        }
+
+        lcp[isa[i] - 1] = h;
+        if (h > 0) {
+          --h;
         }
     }
+
+    return lcp;
 }
 
-vector<int> determine_origin(const vector<int>& sa, int len_s1, int len_s2) {
-    vector<int> origin(sa.size());
-    for (int i = 0; i < sa.size(); ++i) {
-        if (sa[i] < len_s1) {
-            origin[i] = 1;
-        } else if (sa[i] > len_s1 && sa[i] < len_s1 + 1 + len_s2) {
-            origin[i] = 2;
-        } else {
-            origin[i] = 0;
-        }
+vector<int> determineOrigin(const vector<int>& suffArr, int len1, int len2) {
+    vector<int> origin(suffArr.size());
+    for (int i = 0; i < suffArr.size(); ++i) {
+        if (suffArr[i] < len1) origin[i] = 1;
+        else if (suffArr[i] > len1 && suffArr[i] < len1 + 1 + len2) origin[i] = 2;
+        else origin[i] = 0;
     }
     return origin;
 }
@@ -69,34 +84,32 @@ vector<int> determine_origin(const vector<int>& sa, int len_s1, int len_s2) {
 int main() {
     string s1, s2;
     cin >> s1 >> s2;
-    char delimiter1 = '\0';
-    char delimiter2 = '\1';
-    string s = s1 + delimiter1 + s2 + delimiter2;
-    vector<int> sa;
-    build_suffix_array(s, sa);
-    vector<int> isa(s.size());
-    for (int i = 0; i < sa.size(); ++i) {
-        isa[sa[i]] = i;
-    }
-    vector<int> lcp;
-    build_lcp_array(s, sa, lcp, isa);
-    vector<int> origin = determine_origin(sa, s1.size(), s2.size());
-    int max_lcp = 0;
+
+    string s = s1 + DELIMITER_0 + s2 + DELIMITER_1;
+
+    vector<int> suffArr = buildSuffixArray(s);
+    vector<int> lcp = buildLCPArray(s, suffArr);
+    vector<int> origin = determineOrigin(suffArr, s1.size(), s2.size());
+
+    int maxLCP = 0;
     set<string> substrings;
+
     for (int i = 0; i < lcp.size(); ++i) {
-        if (origin[i] != origin[i+1] && origin[i] != 0 && origin[i+1] != 0) {
-            if (lcp[i] > max_lcp) {
-                max_lcp = lcp[i];
+        if (origin[i] != 0 && origin[i + 1] != 0 && origin[i] != origin[i + 1]) {
+            if (lcp[i] > maxLCP) {
+                maxLCP = lcp[i];
                 substrings.clear();
-                substrings.insert(s.substr(sa[i], lcp[i]));
-            } else if (lcp[i] == max_lcp) {
-                substrings.insert(s.substr(sa[i], lcp[i]));
+                substrings.insert(s.substr(suffArr[i], lcp[i]));
+            } else if (lcp[i] == maxLCP) {
+                substrings.insert(s.substr(suffArr[i], lcp[i]));
             }
         }
     }
-    cout << max_lcp << endl;
-    for (const string& substr : substrings) {
+
+    cout << maxLCP << endl;
+    for (const auto& substr : substrings) {
         cout << substr << endl;
     }
+
     return 0;
 }
