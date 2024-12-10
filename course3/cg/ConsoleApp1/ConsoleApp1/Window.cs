@@ -1,221 +1,135 @@
-﻿using OpenTK.Windowing.Common;
-using OpenTK.Windowing.Desktop;
-using OpenTK.Graphics.OpenGL;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Drawing;
+using System.IO;
 using KGBase.Primitives;
 using OpenTK.Mathematics;
-using KGBase.Resourses;
-using OpenTK.Windowing.GraphicsLibraryFramework;
 
 namespace KGBase
 {
-    class Window : GameWindow
+    class RayTracer
     {
-
-        private List<Figure> figures = new List<Figure>();
-        public static Shader figureShader;
-        public static Shader lightShader;
-        public static Shader rayShader;
-        private int height, width;
+        private List<Figure> figures;
+        private List<Light> lights;
         private Camera camera;
+        private int width, height;
+        private Vector3 fogColor = new Vector3(0.5f, 0.5f, 0.5f); // Цвет тумана
+        private float fogDensity = 0.1f;
 
-        private bool _firstMove = true;
-        private Vector2 _lastPos;
-
-        private List<Light> lights = new List<Light>();
-
-        DirLight lightDir;
-        public Window(int width, int height, string title): 
-            base(GameWindowSettings.Default, new NativeWindowSettings() { Size = (width, height), Title = title}){
+        public RayTracer(List<Figure> figures, List<Light> lights, Camera camera, int width, int height)
+        {
+            this.figures = figures;
+            this.lights = lights;
+            this.camera = camera;
             this.width = width;
             this.height = height;
         }
 
-        protected override void OnUpdateFrame(FrameEventArgs e)
+        public void Render(string outputPath)
         {
-            base.OnUpdateFrame(e);
+            Bitmap image = new Bitmap(width, height);
 
-            if (!IsFocused)
+            for (int y = 0; y < height; y++)
             {
-                return;
-            }
-
-            var input = KeyboardState;
-
-            if (input.IsKeyDown(Keys.Escape))
-            {
-                Close();
-            }
-
-            const float cameraSpeed = 1.5f;
-            const float sensitivity = 0.2f;
-
-            if (input.IsKeyDown(Keys.W))
-            {
-                camera.Position += camera.Front * cameraSpeed * (float)e.Time;
-            }
-            if (input.IsKeyDown(Keys.S))
-            {
-                camera.Position -= camera.Front * cameraSpeed * (float)e.Time;
-            }
-            if (input.IsKeyDown(Keys.A))
-            {
-                camera.Position -= camera.Right * cameraSpeed * (float)e.Time;
-            }
-            if (input.IsKeyDown(Keys.D))
-            {
-                camera.Position += camera.Right * cameraSpeed * (float)e.Time;
-            }
-            if (input.IsKeyDown(Keys.Space))
-            {
-                camera.Position += camera.Up * cameraSpeed * (float)e.Time;
-            }
-            if (input.IsKeyDown(Keys.LeftShift))
-            {
-                camera.Position -= camera.Up * cameraSpeed * (float)e.Time;
-            }
-
-            var mouse = MouseState;
-
-            if (_firstMove)
-            {
-                _lastPos = new Vector2(mouse.X, mouse.Y);
-                _firstMove = false;
-            }
-            else
-            {
-
-                var deltaX = mouse.X - _lastPos.X;
-                var deltaY = mouse.Y - _lastPos.Y;
-                _lastPos = new Vector2(mouse.X, mouse.Y);
-
-                camera.Yaw += deltaX * sensitivity;
-                camera.Pitch -= deltaY * sensitivity;
-            }
-
-        }
-
-        protected override void OnMouseWheel(MouseWheelEventArgs e)
-        {
-            base.OnMouseWheel(e);
-
-            camera.Fov -= e.OffsetY;
-        }
-
-        protected override void OnLoad()
-        {
-            base.OnLoad();
-
-            GL.ClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-            GL.Enable(EnableCap.DepthTest);
-            CursorState = CursorState.Grabbed;
-
-            figureShader = new Shader(
-                "C:\\Users\\Ivan\\Desktop\\prj\\mai\\course3\\cg\\ConsoleApp1\\ConsoleApp1\\Resourses\\shader.vert",
-                "C:\\Users\\Ivan\\Desktop\\prj\\mai\\course3\\cg\\ConsoleApp1\\ConsoleApp1\\Resourses\\shader.frag"
-            );
-            lightShader = new Shader(
-                "C:\\Users\\Ivan\\Desktop\\prj\\mai\\course3\\cg\\ConsoleApp1\\ConsoleApp1\\Resourses\\shader.vert",
-                "C:\\Users\\Ivan\\Desktop\\prj\\mai\\course3\\cg\\ConsoleApp1\\ConsoleApp1\\Resourses\\shader.frag"
-            );
-            rayShader = new Shader(
-                "C:\\Users\\Ivan\\Desktop\\prj\\mai\\course3\\cg\\ConsoleApp1\\ConsoleApp1\\Resourses\\raytrace.vert",
-                "C:\\Users\\Ivan\\Desktop\\prj\\mai\\course3\\cg\\ConsoleApp1\\ConsoleApp1\\Resourses\\raytrace.frag"
-            );
-            camera = new Camera(new Vector3(0, 0, 3));
-
-
-            SetUpObjects();
-
-        }
-
-        protected override void OnRenderFrame(FrameEventArgs args)
-        {
-            base.OnRenderFrame(args);
-
-            GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-
-            UpdateLoop(args);
-            
-            SwapBuffers();
-
-        }
-
-        protected override void OnUnload()
-        {
-            base.OnUnload();
-            figureShader.Dispose();
-        }
-
-        protected override void OnFramebufferResize(FramebufferResizeEventArgs e)
-        {
-            base.OnFramebufferResize(e);
-
-            GL.Viewport(0, 0, e.Width, e.Height);
-            this.width = e.Width;
-            this.height = e.Height;
-
-        }
-
-        //Вызывается один раз во время построения сцены
-        protected void SetUpObjects()
-        {
-
-            Cube cube = new Cube([1, 0, 1, 0]);
-            cube.shininess = 0;
-            cube.specular = 0;
-            figures.Add(cube);
-
-            lightDir = new DirLight();
-            lightDir.Direction = new Vector3(0, 1, 0);
-            lights.Add(lightDir);
-
-            // Создание сферы
-            Sphere sphere1 = new Sphere([1.0f, 0.5f, 0.31f], figureShader, 1f, 100, 360);
-            sphere1.coordinates = new Vector3(0, 1, 0);
-            figures.Add(sphere1);
-
-            // Создание плоскости
-            Plane plane = new Plane(new Vector3(0, 0, 0), new Vector3(10, 1, 10), new Vector4(1f, 1f, 1f, 1f), figureShader);
-            figures.Add(plane);
-
-            // Создание второй сферы
-            Sphere sphere2 = new Sphere([0.31f, 0.5f, 1.0f], figureShader, 1f, 100, 360);
-            sphere2.coordinates = new Vector3(1, 1, 1);
-            figures.Add(sphere2);
-
-            // Добавление источника света
-            lightDir = new DirLight();
-            lightDir.Direction = new Vector3(0, -1, -1);
-            lightDir.Color = new Vector3(1.0f, 1.0f, 1.0f); // Белый свет
-            lights.Add(lightDir);
-        }
-
-        //Вызывается каждое обновление кадра
-        protected void UpdateLoop(FrameEventArgs args)
-        {
-
-            float angleDelta = MathHelper.DegreesToRadians(45.0f) * (float) args.Time;
-            Quaternion rotation = Quaternion.FromAxisAngle(new Vector3(1, 1, 1), 0.0001f);
-            lightDir.Direction = Vector3.Normalize(Vector3.Transform(lightDir.Direction, rotation));
-
-            for (int i = 0; i < figures.Count; ++i)
-            {
-                if (figures[i] is Plane)
+                for (int x = 0; x < width; x++)
                 {
-                    (figures[i] as Plane).DrawWithRaytracing(lights, camera, 1, 1);
+                    // Нормализованные координаты пикселя в экранном пространстве
+                    float u = (float)x / (width - 1) * 2 - 1;
+                    float v = (float)y / (height - 1) * 2 - 1;
+                    u *= camera.AspectRatio;
+                    v *= 1;
+
+                    // Генерация луча
+                    Ray ray = camera.GetRay(u, v);
+                    Vector3 color = TraceRay(ray, 0);
+
+                    // Перевод цвета в формат RGB
+                    image.SetPixel(x, y, ColorFromVector(color));
                 }
-                figures[i].Draw(lights, camera, (float)width / height);
             }
-            for (int i = 0; i < lights.Count; ++i)
-            {
-                lights[i].Draw(camera, (float) width / height);
-            }
+
+            image.Save(outputPath);
         }
 
+        private Vector3 TraceRay(Ray ray, int depth)
+        {
+            if (depth > 5) return fogColor; // Ограничение глубины трассировки
+
+            HitRecord hit = FindNearestIntersection(ray);
+            if (hit != null)
+            {
+                // Вычисление рассеяния и поглощения
+                Vector3 color = ApplyLighting(hit, ray);
+
+                // Добавление объемных эффектов
+                color = Vector3.Lerp(color, fogColor, 1 - MathF.Exp(-fogDensity * hit.Distance));
+
+                return color;
+            }
+
+            return fogColor; // Цвет фона
+        }
+
+        private HitRecord FindNearestIntersection(Ray ray)
+        {
+            HitRecord nearestHit = null;
+            foreach (var figure in figures)
+            {
+                HitRecord hit = figure.Intersect(ray);
+                if (hit != null && (nearestHit == null || hit.Distance < nearestHit.Distance))
+                {
+                    nearestHit = hit;
+                }
+            }
+            return nearestHit;
+        }
+
+        private Vector3 ApplyLighting(HitRecord hit, Ray ray)
+        {
+            Vector3 color = Vector3.Zero;
+            foreach (var light in lights)
+            {
+                Vector3 lightDir = Vector3.Normalize(light.Position - hit.Point);
+                float diffuse = MathF.Max(Vector3.Dot(hit.Normal, lightDir), 0);
+                color += diffuse * light.Color;
+            }
+            return color * hit.Color;
+        }
+
+        private Color ColorFromVector(Vector3 vector)
+        {
+            int r = (int)(MathF.Clamp(vector.X, 0, 1) * 255);
+            int g = (int)(MathF.Clamp(vector.Y, 0, 1) * 255);
+            int b = (int)(MathF.Clamp(vector.Z, 0, 1) * 255);
+            return Color.FromArgb(r, g, b);
+        }
+    }
+
+    class Ray
+    {
+        public Vector3 Origin;
+        public Vector3 Direction;
+
+        public Ray(Vector3 origin, Vector3 direction)
+        {
+            Origin = origin;
+            Direction = direction;
+        }
+    }
+
+    class HitRecord
+    {
+        public Vector3 Point;
+        public Vector3 Normal;
+        public Vector3 Color;
+        public float Distance;
+
+        public HitRecord(Vector3 point, Vector3 normal, Vector3 color, float distance)
+        {
+            Point = point;
+            Normal = normal;
+            Color = color;
+            Distance = distance;
+        }
     }
 }
