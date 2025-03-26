@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Ivan\\Desktop\\prj\\mai\\course3\\cg\\lab3\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{459D555B-77B1-4DF6-8155-0846B937696C}|KGBase.csproj|c:\\users\\ivan\\desktop\\prj\\mai\\course3\\cg\\lab3\\window.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{459D555B-77B1-4DF6-8155-0846B937696C}|KGBase.csproj|solutionrelative:window.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Window.cs",
+              "DocumentMoniker": "C:\\Users\\Ivan\\Desktop\\prj\\mai\\course3\\cg\\lab3\\Window.cs",
+              "RelativeDocumentMoniker": "Window.cs",
+              "ToolTip": "C:\\Users\\Ivan\\Desktop\\prj\\mai\\course3\\cg\\lab3\\Window.cs",
+              "RelativeToolTip": "Window.cs",
+              "ViewState": "AgIAAE4AAAAAAAAAAAAYwIsAAABWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-11T21:28:44.39Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

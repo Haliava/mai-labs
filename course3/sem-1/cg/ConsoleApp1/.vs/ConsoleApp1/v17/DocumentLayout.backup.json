@@ -1,0 +1,170 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Ivan\\Desktop\\prj\\mai\\course3\\cg\\ConsoleApp1\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{CD2BCC39-37D0-4253-BD69-FBD7B063AEDC}|ConsoleApp1\\ConsoleApp1.csproj|c:\\users\\ivan\\desktop\\prj\\mai\\course3\\cg\\consoleapp1\\consoleapp1\\primitives\\pointlight.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CD2BCC39-37D0-4253-BD69-FBD7B063AEDC}|ConsoleApp1\\ConsoleApp1.csproj|solutionrelative:consoleapp1\\primitives\\pointlight.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CD2BCC39-37D0-4253-BD69-FBD7B063AEDC}|ConsoleApp1\\ConsoleApp1.csproj|c:\\users\\ivan\\desktop\\prj\\mai\\course3\\cg\\consoleapp1\\consoleapp1\\primitives\\sphere.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CD2BCC39-37D0-4253-BD69-FBD7B063AEDC}|ConsoleApp1\\ConsoleApp1.csproj|solutionrelative:consoleapp1\\primitives\\sphere.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CD2BCC39-37D0-4253-BD69-FBD7B063AEDC}|ConsoleApp1\\ConsoleApp1.csproj|c:\\users\\ivan\\desktop\\prj\\mai\\course3\\cg\\consoleapp1\\consoleapp1\\window.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CD2BCC39-37D0-4253-BD69-FBD7B063AEDC}|ConsoleApp1\\ConsoleApp1.csproj|solutionrelative:consoleapp1\\window.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{62770D3F-3433-498E-8C1C-C600261B35BB}|lab2\\lab2.csproj|c:\\users\\ivan\\desktop\\prj\\mai\\course3\\cg\\consoleapp1\\lab2\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{62770D3F-3433-498E-8C1C-C600261B35BB}|lab2\\lab2.csproj|solutionrelative:lab2\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8489BF7A-3391-4B8E-BBD6-D758C5FE7B05}|ConsoleApp2\\ConsoleApp2.csproj|c:\\users\\ivan\\desktop\\prj\\mai\\course3\\cg\\consoleapp1\\consoleapp2\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8489BF7A-3391-4B8E-BBD6-D758C5FE7B05}|ConsoleApp2\\ConsoleApp2.csproj|solutionrelative:consoleapp2\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{62770D3F-3433-498E-8C1C-C600261B35BB}|lab2\\lab2.csproj|c:\\users\\ivan\\desktop\\prj\\mai\\course3\\cg\\consoleapp1\\lab2\\window.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{62770D3F-3433-498E-8C1C-C600261B35BB}|lab2\\lab2.csproj|solutionrelative:lab2\\window.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CD2BCC39-37D0-4253-BD69-FBD7B063AEDC}|ConsoleApp1\\ConsoleApp1.csproj|c:\\users\\ivan\\desktop\\prj\\mai\\course3\\cg\\consoleapp1\\consoleapp1\\primitives\\plane.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CD2BCC39-37D0-4253-BD69-FBD7B063AEDC}|ConsoleApp1\\ConsoleApp1.csproj|solutionrelative:consoleapp1\\primitives\\plane.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CD2BCC39-37D0-4253-BD69-FBD7B063AEDC}|ConsoleApp1\\ConsoleApp1.csproj|c:\\users\\ivan\\desktop\\prj\\mai\\course3\\cg\\consoleapp1\\consoleapp1\\primitives\\ray.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CD2BCC39-37D0-4253-BD69-FBD7B063AEDC}|ConsoleApp1\\ConsoleApp1.csproj|solutionrelative:consoleapp1\\primitives\\ray.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CD2BCC39-37D0-4253-BD69-FBD7B063AEDC}|ConsoleApp1\\ConsoleApp1.csproj|c:\\users\\ivan\\desktop\\prj\\mai\\course3\\cg\\consoleapp1\\consoleapp1\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CD2BCC39-37D0-4253-BD69-FBD7B063AEDC}|ConsoleApp1\\ConsoleApp1.csproj|solutionrelative:consoleapp1\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "PointLight.cs",
+              "DocumentMoniker": "C:\\Users\\Ivan\\Desktop\\prj\\mai\\course3\\cg\\ConsoleApp1\\ConsoleApp1\\Primitives\\PointLight.cs",
+              "RelativeDocumentMoniker": "ConsoleApp1\\Primitives\\PointLight.cs",
+              "ToolTip": "C:\\Users\\Ivan\\Desktop\\prj\\mai\\course3\\cg\\ConsoleApp1\\ConsoleApp1\\Primitives\\PointLight.cs",
+              "RelativeToolTip": "ConsoleApp1\\Primitives\\PointLight.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-11T08:23:35.857Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Window.cs",
+              "DocumentMoniker": "C:\\Users\\Ivan\\Desktop\\prj\\mai\\course3\\cg\\ConsoleApp1\\lab2\\Window.cs",
+              "RelativeDocumentMoniker": "lab2\\Window.cs",
+              "ToolTip": "C:\\Users\\Ivan\\Desktop\\prj\\mai\\course3\\cg\\ConsoleApp1\\lab2\\Window.cs",
+              "RelativeToolTip": "lab2\\Window.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-11T07:18:19.377Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Ivan\\Desktop\\prj\\mai\\course3\\cg\\ConsoleApp1\\lab2\\Program.cs",
+              "RelativeDocumentMoniker": "lab2\\Program.cs",
+              "ToolTip": "C:\\Users\\Ivan\\Desktop\\prj\\mai\\course3\\cg\\ConsoleApp1\\lab2\\Program.cs",
+              "RelativeToolTip": "lab2\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-11T07:17:45.767Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Ray.cs",
+              "DocumentMoniker": "C:\\Users\\Ivan\\Desktop\\prj\\mai\\course3\\cg\\ConsoleApp1\\ConsoleApp1\\Primitives\\Ray.cs",
+              "RelativeDocumentMoniker": "ConsoleApp1\\Primitives\\Ray.cs",
+              "ToolTip": "C:\\Users\\Ivan\\Desktop\\prj\\mai\\course3\\cg\\ConsoleApp1\\ConsoleApp1\\Primitives\\Ray.cs",
+              "RelativeToolTip": "ConsoleApp1\\Primitives\\Ray.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-30T21:00:53.099Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Sphere.cs",
+              "DocumentMoniker": "C:\\Users\\Ivan\\Desktop\\prj\\mai\\course3\\cg\\ConsoleApp1\\ConsoleApp1\\Primitives\\Sphere.cs",
+              "RelativeDocumentMoniker": "ConsoleApp1\\Primitives\\Sphere.cs",
+              "ToolTip": "C:\\Users\\Ivan\\Desktop\\prj\\mai\\course3\\cg\\ConsoleApp1\\ConsoleApp1\\Primitives\\Sphere.cs",
+              "RelativeToolTip": "ConsoleApp1\\Primitives\\Sphere.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEcAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-30T21:00:37.471Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Plane.cs",
+              "DocumentMoniker": "C:\\Users\\Ivan\\Desktop\\prj\\mai\\course3\\cg\\ConsoleApp1\\ConsoleApp1\\Primitives\\Plane.cs",
+              "RelativeDocumentMoniker": "ConsoleApp1\\Primitives\\Plane.cs",
+              "ToolTip": "C:\\Users\\Ivan\\Desktop\\prj\\mai\\course3\\cg\\ConsoleApp1\\ConsoleApp1\\Primitives\\Plane.cs",
+              "RelativeToolTip": "ConsoleApp1\\Primitives\\Plane.cs",
+              "ViewState": "AgIAACIAAAAAAAAAAAAuwCsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-30T21:00:24.519Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Ivan\\Desktop\\prj\\mai\\course3\\cg\\ConsoleApp1\\ConsoleApp2\\Program.cs",
+              "RelativeDocumentMoniker": "ConsoleApp2\\Program.cs",
+              "ToolTip": "C:\\Users\\Ivan\\Desktop\\prj\\mai\\course3\\cg\\ConsoleApp1\\ConsoleApp2\\Program.cs",
+              "RelativeToolTip": "ConsoleApp2\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAALQAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-30T20:24:37.936Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Window.cs",
+              "DocumentMoniker": "C:\\Users\\Ivan\\Desktop\\prj\\mai\\course3\\cg\\ConsoleApp1\\ConsoleApp1\\Window.cs",
+              "RelativeDocumentMoniker": "ConsoleApp1\\Window.cs",
+              "ToolTip": "C:\\Users\\Ivan\\Desktop\\prj\\mai\\course3\\cg\\ConsoleApp1\\ConsoleApp1\\Window.cs",
+              "RelativeToolTip": "ConsoleApp1\\Window.cs",
+              "ViewState": "AgIAAK0AAAAAAAAAAAA0wHgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-26T19:20:13.038Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Ivan\\Desktop\\prj\\mai\\course3\\cg\\ConsoleApp1\\ConsoleApp1\\Program.cs",
+              "RelativeDocumentMoniker": "ConsoleApp1\\Program.cs",
+              "ToolTip": "C:\\Users\\Ivan\\Desktop\\prj\\mai\\course3\\cg\\ConsoleApp1\\ConsoleApp1\\Program.cs",
+              "RelativeToolTip": "ConsoleApp1\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-16T10:27:39.22Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
