@@ -1,26 +1,3 @@
-DROP TABLE IF EXISTS fact_sales CASCADE;
-DROP TABLE IF EXISTS dim_customer CASCADE;
-DROP TABLE IF EXISTS dim_seller CASCADE;
-DROP TABLE IF EXISTS dim_product CASCADE;
-DROP TABLE IF EXISTS dim_store CASCADE;
-DROP TABLE IF EXISTS dim_supplier CASCADE;
-DROP TABLE IF EXISTS dim_date CASCADE;
-DROP TABLE IF EXISTS dim_pet_type CASCADE;
-DROP TABLE IF EXISTS dim_pet_breed CASCADE;
-DROP TABLE IF EXISTS dim_country CASCADE;
-DROP TABLE IF EXISTS dim_size CASCADE;
-DROP TABLE IF EXISTS dim_color CASCADE;
-DROP TABLE IF EXISTS dim_material CASCADE;
-DROP TABLE IF EXISTS dim_brand CASCADE;
-DROP TABLE IF EXISTS dim_pet_category CASCADE;
-DROP TABLE IF EXISTS dim_pet CASCADE;
-DROP TABLE IF EXISTS dim_state CASCADE;
-DROP TABLE IF EXISTS dim_city CASCADE;
-DROP TABLE IF EXISTS dim_product_category CASCADE;
-
-
--- Справочники для снежинки
-
 CREATE TABLE dim_product_category (
     category_id SERIAL PRIMARY KEY,
     category_name VARCHAR(255) UNIQUE NOT NULL
@@ -75,8 +52,6 @@ CREATE TABLE dim_pet_type (
     pet_type_id SERIAL PRIMARY KEY,
     pet_type_name VARCHAR(255) UNIQUE NOT NULL
 );
-
--- Измерения звезды
 
 CREATE TABLE dim_date (
     date_id SERIAL PRIMARY KEY,
@@ -178,9 +153,6 @@ CREATE TABLE dim_seller (
     FOREIGN KEY (country_id) REFERENCES dim_country(country_id)
 );
 
-
--- Факты звезды
-
 CREATE TABLE fact_sales (
     sale_id SERIAL PRIMARY KEY,
     date_id INT NOT NULL,
@@ -201,12 +173,3 @@ CREATE TABLE fact_sales (
     FOREIGN KEY (supplier_id) REFERENCES dim_supplier(supplier_id),
     FOREIGN KEY (pet_id) REFERENCES dim_pet(pet_id)
 );
-
---- Индексы для быстрого поиска и анализа
-
-CREATE INDEX idx_fact_sales_date ON fact_sales(date_id);
-CREATE INDEX idx_fact_sales_product ON fact_sales(product_id);
-CREATE INDEX idx_fact_sales_customer ON fact_sales(customer_id);
-CREATE INDEX idx_fact_sales_store ON fact_sales(store_id);
-CREATE INDEX idx_fact_sales_supplier ON fact_sales(supplier_id);
-CREATE INDEX idx_fact_sales_pet ON fact_sales(pet_id);

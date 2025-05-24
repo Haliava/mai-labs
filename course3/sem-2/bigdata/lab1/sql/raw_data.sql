@@ -1,4 +1,4 @@
-CREATE TABLE raw_data (
+CREATE TABLE all_data (
     id INTEGER,
     customer_first_name VARCHAR(255),
     customer_last_name VARCHAR(255),

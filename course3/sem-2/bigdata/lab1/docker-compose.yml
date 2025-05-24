@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: petstore
+    ports:
+      - "5432:5432"
+    volumes:
+      - "./исходные данные:/source_data"
+      - ./sql:/docker-entrypoint-initdb.d
+    command: >
+      sh -c "ln -s /source_data /data
+      && docker-entrypoint.sh postgres"
